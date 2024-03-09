@@ -34,4 +34,15 @@ return require('packer').startup(function(use)
 	}
 
 	use 'github/copilot.vim'
+
+	use "nvim-lua/plenary.nvim"
+	use {
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		requires = { {"nvim-lua/plenary.nvim"} }
+	}
+
+	use 'mbbill/undotree'
+	use 'tpope/vim-fugitive'
 end)
+
