@@ -44,4 +44,12 @@ return require('packer').startup(function(use)
         "iamcco/markdown-preview.nvim",
         run = function() vim.fn["mkdp#util#install"]() end,
     })
+
+    use 'hedyhli/outline.nvim'
+    
+    use {
+        'nvim-pack/nvim-spectre',
+        requires = { 'nvim-lua/plenary.nvim' }
+    }
+
 end)
