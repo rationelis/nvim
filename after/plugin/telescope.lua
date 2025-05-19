@@ -1,7 +1,12 @@
 local builtin = require('telescope.builtin')
+local utils = require('telescope.utils')
 
-vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+vim.keymap.set('n', '<leader>pf', function()
+  builtin.find_files({ cwd = utils.buffer_dir() })
+end, { desc = "Find Files in Buffer Dir" })
+
 vim.keymap.set('n', '<leader>ps', function()
-  require('telescope.builtin').live_grep()
-end, { noremap = true, silent = true })
-vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+  builtin.live_grep({ cwd = utils.buffer_dir() })
+end, { noremap = true, silent = true, desc = "Live Grep in Buffer Dir" })
+
+vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find Git Files" })
