@@ -1,5 +1,8 @@
-require("conform").setup({
-    formatters_by_ft = {
+return {
+  "stevearc/conform.nvim",
+  config = function()
+    require("conform").setup({
+      formatters_by_ft = {
         lua = { "stylua" },
         rust = { "rustfmt" },
         markdown = { "prettier" },
@@ -10,12 +13,14 @@ require("conform").setup({
         javascript = { "prettier" },
         css = { "prettier" },
         scss = { "prettier" },
-    },
-})
+      },
+    })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    callback = function(args)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = "*",
+      callback = function(args)
         require("conform").format({ bufnr = args.buf })
-    end,
-})
+      end,
+    })
+  end,
+}

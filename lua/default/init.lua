@@ -1,5 +1,0 @@
-require("default.packer")
-require("default.remap")
-require("default.set")
-require("default.hardmode")
-require("default.auto_cd")
