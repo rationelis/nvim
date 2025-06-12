@@ -1,31 +1,70 @@
 return {
-  {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v3.x",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
-      "neovim/nvim-lspconfig",
+    {
+        "neovim/nvim-lspconfig",
+        config = function()
+            local lspconfig = require("lspconfig")
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+            local on_attach = function(_, bufnr)
+                local map = function(mode, lhs, rhs, desc)
+                    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+                end
+                map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+                map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
+                map("n", "gr", vim.lsp.buf.references, "Go to references")
+                map("n", "K", vim.lsp.buf.hover, "Hover documentation")
+            end
+            vim.lsp.inlay_hint.enable()
+            vim.diagnostic.config({ virtual_text = true })
+        end,
     },
-    config = function()
-      local lsp_zero = require("lsp-zero")
-
-      require("mason").setup({})
-      require("mason-lspconfig").setup({
-        ensure_installed = { "rust_analyzer" },
-        handlers = {
-          lsp_zero.default_setup,
-          lua_ls = function()
-            local lua_opts = lsp_zero.nvim_lua_ls()
-            require("lspconfig").lua_ls.setup(lua_opts)
-          end,
+    {
+        "nvimdev/lspsaga.nvim",
+        branch = "main",
+        opts = {
+            preview = {
+                lines_above = 2,
+                lines_below = 10,
+            },
+            symbol_in_winbar = {
+                enable = false,
+            },
+            ui = {
+                border = "single",
+                code_action = "🦝",
+            },
+            lightbulb = {
+                sign = false,
+            },
         },
-      })
-
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, {})
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, {})
-      vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-    end,
-  }
+    },
+    {
+        "Saecki/crates.nvim",
+        ft = "toml",
+        opts = {},
+        dependencies = { "nvimtools/none-ls.nvim" },
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        dependencies = {
+            { "nushell/tree-sitter-nu" },
+        },
+        config = function()
+            require("nvim-treesitter.configs").setup({
+                ensure_installed = {
+                    "lua",
+                    "vim",
+                    "javascript",
+                    "typescript",
+                    "markdown",
+                    "markdown_inline",
+                    "bash",
+                    "regex",
+                    "nu",
+                    "rust",
+                },
+            })
+        end,
+        build = ":TSUpdate",
+    }
 }
