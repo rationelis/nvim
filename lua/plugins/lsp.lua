@@ -16,8 +16,24 @@ return {
 			end
 			vim.lsp.inlay_hint.enable()
 			vim.diagnostic.config({ virtual_text = true })
+
+			lspconfig.pyright.setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				settings = {
+					pyright = {
+						disableOrganizeImports = true, -- use Ruff for organizing imports
+					},
+					python = {
+						analysis = {
+							ignore = { "*" }, -- disable analysis, Ruff handles linting
+						},
+					},
+				},
+			})
 		end,
 	},
+
 	{
 		"nvimdev/lspsaga.nvim",
 		branch = "main",
@@ -38,12 +54,7 @@ return {
 			},
 		},
 	},
-	{
-		"Saecki/crates.nvim",
-		ft = "toml",
-		opts = {},
-		dependencies = { "nvimtools/none-ls.nvim" },
-	},
+
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
@@ -52,16 +63,28 @@ return {
 		config = function()
 			require("nvim-treesitter.configs").setup({
 				ensure_installed = {
+					-- Core
 					"lua",
-					"vim",
-					"javascript",
+					"rust",
 					"typescript",
+					"python",
+
+					-- Web
+					"html",
+					"css",
+
+					-- Docs
 					"markdown",
 					"markdown_inline",
+
+					-- Shell
 					"bash",
 					"regex",
-					"nu",
-					"rust",
+
+					-- Config
+					"json",
+					"yaml",
+					"toml",
 				},
 			})
 		end,

@@ -13,6 +13,7 @@ return {
 				javascript = { "prettier" },
 				css = { "prettier" },
 				scss = { "prettier" },
+				python = { "black" },
 			},
 		})
 

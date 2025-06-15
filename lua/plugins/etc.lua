@@ -21,4 +21,11 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" },
 		opts = {},
 	},
+
+	{
+		"Saecki/crates.nvim",
+		ft = "toml",
+		opts = {},
+		dependencies = { "nvimtools/none-ls.nvim" },
+	},
 }
