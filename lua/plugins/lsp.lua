@@ -68,6 +68,7 @@ return {
 					"rust",
 					"typescript",
 					"python",
+					"haskell",
 
 					-- Web
 					"html",

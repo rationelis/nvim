@@ -17,6 +17,7 @@ return {
 				"ts_ls",
 				"pyright",
 				"ruff",
+				"hls",
 			},
 			automatic_installation = true,
 		},
@@ -60,5 +61,11 @@ return {
 				},
 			},
 		},
+	},
+
+	{
+		"mrcjkb/haskell-tools.nvim",
+		version = "^5",
+		lazy = false,
 	},
 }
